@@ -1,0 +1,16 @@
+.menu-link {
+  text-decoration: none;
+  color: #000;
+  font-weight: 400;
+}
+
+.menu-list {
+  list-style: none;
+  padding: 0;
+  display: flex;
+  justify-content: center;
+}
+
+.menu-list li {
+  margin: 0 10px;
+}
