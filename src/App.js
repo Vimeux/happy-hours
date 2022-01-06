@@ -1,20 +1,20 @@
-import './App.css';
+import './App.css'
 
 import {
   BrowserRouter as Router,
   Switch,
   Route
 } from 'react-router-dom'
-import Header from './components/Header';
-import Bars from './pages/Bars';
-import Home from './pages/Home';
+import Header from './components/Header/Header'
+import Bars from './pages/Bars'
+import Home from './pages/Home'
 
-function App() {
+function App () {
   return (
-    <div className="App">
+    <div className='App'>
       <Router>
         <Header />
-        <header className="App-header">
+        <header className='App-header'>
           <Switch>
             <Route path='/bars'>
               <Bars />
@@ -26,7 +26,7 @@ function App() {
         </header>
       </Router>
     </div>
-  );
+  )
 }
 
-export default App;
+export default App

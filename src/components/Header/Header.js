@@ -1,14 +1,14 @@
-import React from "react"
-import { Button } from "@mui/material"
+import React from 'react'
+import { Button } from '@mui/material'
 import {
   NavLink
 } from 'react-router-dom'
 
-import './styles/Header.css'
+import './Header.css'
 
-function Header() {
+function Header () {
   return (
-    <div>
+    <>
       <nav>
         <ul className='menu-list'>
           <li>
@@ -23,7 +23,7 @@ function Header() {
           </li>
         </ul>
       </nav>
-    </div>
+    </>
   )
 }
 
