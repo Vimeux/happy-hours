@@ -1,7 +1,7 @@
 import React from 'react'
 import { Button } from '@mui/material'
 import {
-  NavLink
+  Link
 } from 'react-router-dom'
 
 import './Header.css'
@@ -13,12 +13,12 @@ function Header () {
         <ul className='menu-list'>
           <li>
             <Button>
-              <NavLink exact to='/' activeClassName='isActive' className='menu-link'>Accueil</NavLink>
+              <Link exact='true' to='/' className='menu-link'>Accueil</Link>
             </Button>
           </li>
           <li>
             <Button>
-              <NavLink to='/bars' activeClassName='isActive' className='menu-link'>Bars</NavLink>
+              <Link to='/bars' className='menu-link'>Bars</Link>
             </Button>
           </li>
         </ul>

@@ -3,7 +3,8 @@ import './App.css'
 import {
   BrowserRouter as Router,
   Switch,
-  Route
+  Route,
+  Routes
 } from 'react-router-dom'
 import Header from './components/Header/Header'
 import Bars from './pages/Bars'
@@ -12,19 +13,13 @@ import Home from './pages/Home'
 function App () {
   return (
     <div className='App'>
-      <Router>
-        <Header />
-        <header className='App-header'>
-          <Switch>
-            <Route path='/bars'>
-              <Bars />
-            </Route>
-            <Route path='/'>
-              <Home />
-            </Route>
-          </Switch>
-        </header>
-      </Router>
+      <Header />
+      <header className='App-header'>
+        <Routes>
+          <Route path='/bars' element={<Bars />} />
+          <Route path='/' element={<Home />} />
+        </Routes>
+      </header>
     </div>
   )
 }
