@@ -17,6 +17,35 @@ const getBars = async () => {
   }
 }
 
+// méthode pour se connecter
+const login = async (credentials) => {
+  try {
+    const response = await api.post('/auth/login', credentials)
+    return response.data
+  } catch (error) {
+    throw new Error(error.message)
+  }
+}
+
+// Récupération du profil
+const getProfile = async () => {
+  try {
+    const token = window.localStorage.getItem('token')
+    if (token) {
+      const response = await api.get('/me', {
+        headers: {
+          Authorization: `Bearer ${token}`
+        }
+      })
+      return response.data
+    }
+  } catch (error) {
+    console.error(error)
+  }
+}
+
 export {
-  getBars
+  getBars,
+  login,
+  getProfile
 }

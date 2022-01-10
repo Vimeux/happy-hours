@@ -21,6 +21,11 @@ function Header () {
               <Link to='/bars' className='menu-link'>Bars</Link>
             </Button>
           </li>
+          <li>
+            <Button>
+              <Link to='/auth' className='menu-link'>Connexion</Link>
+            </Button>
+          </li>
         </ul>
       </nav>
     </>
