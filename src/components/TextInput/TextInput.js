@@ -1,12 +1,12 @@
+import { TextField } from '@mui/material'
+
 function TextInput (props) {
   return (
     <label className='label'>
-      {props.label}
-      <input
+      <TextField
         {...props}
         value={props.value}
         onChange={props.onChange}
-        className='input'
       />
     </label>
   )

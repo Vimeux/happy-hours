@@ -17,6 +17,22 @@ const getBars = async () => {
   }
 }
 
+const addBar = async (barInfos) => {
+  try {
+    const response = await api.post('bars', barInfos)
+    return {
+      error: null,
+      data: response.data
+    }
+  } catch (error) {
+    console.error(error)
+    return {
+      error: error,
+      data: null
+    }
+  }
+}
+
 // méthode pour se connecter
 const login = async (credentials) => {
   try {
@@ -65,6 +81,7 @@ const getProfile = async () => {
 
 export {
   getBars,
+  addBar,
   login,
   getProfile,
   register
