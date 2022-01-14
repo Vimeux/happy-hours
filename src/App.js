@@ -9,6 +9,7 @@ import Bars from './pages/Bars'
 import Home from './pages/Home'
 import Auth from './pages/Auth'
 import { AuthProvider } from './contexts/AuthContext'
+import Profile from './pages/Profile'
 
 function App () {
   return (
@@ -17,6 +18,7 @@ function App () {
         <Header />
         <header className='App-header'>
           <Routes>
+            <Route path='/profile' element={<Profile />} />
             <Route path='/auth' element={<Auth />} />
             <Route path='/bars' element={<Bars />} />
             <Route path='/' element={<Home />} />

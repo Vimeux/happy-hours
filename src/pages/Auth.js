@@ -1,15 +1,18 @@
 import { useEffect, useState } from 'react'
 import LoginForm from '../components/LoginForm/LoginForm'
+import RegisterForm from '../components/RegisterForm/RegisterForm'
 import UserInfos from '../components/UserInfos/UserInfos'
 import { actionTypes, loginUser, useAuth } from '../contexts/AuthContext'
-import { getProfile } from '../services/api'
+import { getProfile, register } from '../services/api'
+import { useNavigate } from 'react-router-dom'
 
 function Auth () {
   // initialisation des état locaux
   const [isLoggedIn, setIsLoggedIn] = useState(false)
   const [isRegister, setIsRegister] = useState(false)
   const [profil, setProfil] = useState(null)
-  const { dispatch, state: { error, user, loading } } = useAuth()
+  const { dispatch, state: { error, user } } = useAuth()
+  const navigate = useNavigate()
 
   // on vérifie à chaque fois si l'utilisatuer est connecté ou non
   useEffect(() => {
@@ -22,10 +25,9 @@ function Auth () {
 
   // Soumission du formulaire
   const handleSubmit = async (infos) => {
-    // let data
     if (isRegister) {
       // Appel de la fonction d'inscription
-      // data = await register(infos)
+      await register(infos)
     } else {
       // Appel de la fonction de login
       await loginUser(infos, dispatch)
@@ -43,6 +45,7 @@ function Auth () {
     dispatch({
       type: actionTypes.LOGOUT
     })
+    navigate('/auth')
   }
 
   return (
@@ -54,10 +57,20 @@ function Auth () {
             />
           : (
             <div>
-              <LoginForm
-                submit={handleSubmit}
-                error={error}
-              />
+              {
+                isRegister
+                  ? <RegisterForm
+                      submit={handleSubmit}
+                      error={error}
+                    />
+                  : <LoginForm
+                      submit={handleSubmit}
+                      error={error}
+                    />
+              }
+              <h3 href='#' onClick={() => setIsRegister(!isRegister)} className='register'>
+                {isRegister ? 'Se connecter' : "S'inscrire"}
+              </h3>
             </div>
             )
       }

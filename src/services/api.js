@@ -27,6 +27,25 @@ const login = async (credentials) => {
   }
 }
 
+const register = async (registerInfos) => {
+  try {
+    const response = await api.post('/auth/register', registerInfos)
+    if (response.data && response.data.token) {
+      window.localStorage.setItem('token', response.data.token)
+    }
+    return {
+      error: null,
+      data: response.data
+    }
+  } catch (error) {
+    console.error(error)
+    return {
+      error: error,
+      data: null
+    }
+  }
+}
+
 // Récupération du profil
 const getProfile = async () => {
   try {
@@ -47,5 +66,6 @@ const getProfile = async () => {
 export {
   getBars,
   login,
-  getProfile
+  getProfile,
+  register
 }

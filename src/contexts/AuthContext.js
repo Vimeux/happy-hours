@@ -46,10 +46,10 @@ const AuthReducer = (state, action) => {
 const AuthProvider = ({ children }) => {
   // on utilise le reducer qu'on a créé
   const [state, dispatch] = useReducer(AuthReducer, initialState)
-
   // Enregistre automatiquement l'état dans le localStorage à chaque changement
   useEffect(() => {
     window.localStorage.setItem('AUTH', JSON.stringify(state))
+    window.localStorage.setItem('token', state.token)
   }, [state])
 
   // On retourne le composant
