@@ -1,3 +1,16 @@
+.menu {
+  display: flex;
+  justify-content: space-between;
+}
+
+.menu, .menu-close {
+  padding: 10px;
+}
+
+.logo {
+  width: 50px;
+}
+
 .menu-link {
   text-decoration: none;
   color: #000;
