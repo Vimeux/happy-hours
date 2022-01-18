@@ -1,3 +1,4 @@
+import { Button } from '@mui/material'
 import { useState } from 'react'
 import TextInput from '../TextInput/TextInput'
 
@@ -37,7 +38,7 @@ function LoginForm ({ submit, error }) {
         value={formData.password}
         onChange={handleChange}
       />
-      <input type='submit' value='Se Connecter' />
+      <Button className='button' variant='contained' type='submit' value='Se Connecter'>Se Connecter</Button>
       {
         error &&
         (

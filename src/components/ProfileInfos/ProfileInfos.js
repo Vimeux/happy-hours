@@ -1,3 +1,5 @@
+import { Button } from '@mui/material'
+
 function ProfileInfos ({ logout, profil }) {
   // const [profil, setProfil] = useState(null)
 
@@ -7,7 +9,7 @@ function ProfileInfos ({ logout, profil }) {
       <p>{profil.lastName}</p>
       <p>{profil.email}</p>
       <p>{profil.phone}</p>
-      <button onClick={logout}>Se déconnecter</button>
+      <Button className='button' variant='contained' onClick={logout}>Se déconnecter</Button>
     </div>
   )
 }

@@ -1,3 +1,4 @@
+import { Button } from '@mui/material'
 import { useState } from 'react'
 import TextInput from '../TextInput/TextInput'
 
@@ -61,7 +62,7 @@ function RegisterForm ({ submit, error }) {
           onChange={handleChange}
         />
       </div>
-      <input type='submit' value="S'inscrire" />
+      <Button className='button' variant='contained' type='submit' value="S'inscrire">S'inscrire</Button>
       {
         error &&
         (

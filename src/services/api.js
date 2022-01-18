@@ -19,7 +19,24 @@ const getBars = async () => {
 
 const addBar = async (barInfos) => {
   try {
-    const response = await api.post('bars', barInfos)
+    const response = await api.post('/bars', barInfos)
+    return {
+      error: null,
+      data: response.data
+    }
+  } catch (error) {
+    console.error(error)
+    return {
+      error: error,
+      data: null
+    }
+  }
+}
+
+const deleteBar = async (barId) => {
+  try {
+    console.log(barId)
+    const response = await api.delete(`/bars?id=${barId}`)
     return {
       error: null,
       data: response.data
@@ -82,6 +99,7 @@ const getProfile = async () => {
 export {
   getBars,
   addBar,
+  deleteBar,
   login,
   getProfile,
   register

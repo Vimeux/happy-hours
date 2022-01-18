@@ -1,4 +1,5 @@
-import { FormControl, InputLabel, MenuItem, Select } from '@mui/material'
+// import { FormControl, InputLabel, MenuItem, Select } from '@mui/material'
+import { Button } from '@mui/material'
 import { useState } from 'react'
 import TextInput from '../TextInput/TextInput'
 
@@ -7,28 +8,27 @@ function AddBarForm ({ submit }) {
   const [formData, setFormData] = useState({
     name: '',
     address: '',
-    phone: '',
-    schedules: [
-      {
-        day: '',
-        start: null,
-        end: null
-      }
-    ]
+    phone: ''
+    // schedules: [
+    //   {
+    //     day: '',
+    //     start: null,
+    //     end: null
+    //   }
+    // ]
   })
-  const day = ['monday']
-  const [age, setAge] = useState('')
+  // const [age, setAge] = useState()
 
   const handleChange = (event) => {
     setFormData({
       ...formData,
       [event.target.name]: event.target.value
     })
-    setAge(event.target.value)
   }
 
   const handleSubmit = (e) => {
     e.preventDefault()
+    console.log(formData)
     submit(formData)
   }
 
@@ -55,26 +55,30 @@ function AddBarForm ({ submit }) {
           value={formData.phone}
           onChange={handleChange}
         />
-        {formData.schedules.map((element, index) => (
+        {/* {formData.schedules.map((element, index) => (
           <div key={index}>
-            <FormControl>
+            <FormControl fullWidth>
               <InputLabel id='simple-select-label'>Age</InputLabel>
               <Select
                 labelId='simple-select-label'
                 id='simple-select'
-                value={age}
+                value={formData.schedules.day}
                 label='Age'
                 onChange={handleChange}
               >
-                <MenuItem value={10}>Ten</MenuItem>
-                <MenuItem value={20}>Twenty</MenuItem>
-                <MenuItem value={30}>Thirty</MenuItem>
+                <MenuItem value='mon'>Lundi</MenuItem>
+                <MenuItem value='tue'>Mardi</MenuItem>
+                <MenuItem value='wed'>Mercredi</MenuItem>
+                <MenuItem value='thu'>Jeudi</MenuItem>
+                <MenuItem value='fri'>Vendredi</MenuItem>
+                <MenuItem value='sat'>Samedi</MenuItem>
+                <MenuItem value='sun'>Dimache</MenuItem>
               </Select>
             </FormControl>
           </div>
-        ))}
+        ))} */}
       </div>
-      <input type='submit' value='Ajouter' />
+      <Button className='button' variant='contained' type='submit' value='Ajouter'>Ajouter</Button>
     </form>
   )
 

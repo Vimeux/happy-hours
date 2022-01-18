@@ -38,26 +38,34 @@ function Header () {
       </Stack>
       <Divider />
       <List>
-        <ListItem>
-          <ListItemButton>
-            <Link exact='true' to='/' className='menu-link'>Accueil</Link>
-          </ListItemButton>
-        </ListItem>
-        <ListItem>
-          <ListItemButton>
-            <Link to='/addBar' className='menu-link'>Ajouter un bar</Link>
-          </ListItemButton>
-        </ListItem>
-        <ListItem>
-          <ListItemButton>
-            <Link to='/auth' className='menu-link'>Connexion</Link>
-          </ListItemButton>
-        </ListItem>
-        <ListItem>
-          <ListItemButton>
-            <Link to='/profile' className='menu-link'>Profil</Link>
-          </ListItemButton>
-        </ListItem>
+        <Link exact='true' to='/' className='menu-link'>
+          <ListItem>
+            <ListItemButton>
+              Accueil
+            </ListItemButton>
+          </ListItem>
+        </Link>
+        <Link to='/addBar' className='menu-link'>
+          <ListItem>
+            <ListItemButton>
+              Ajouter un bar
+            </ListItemButton>
+          </ListItem>
+        </Link>
+        <Link to='/auth' className='menu-link'>
+          <ListItem>
+            <ListItemButton>
+              Connexion
+            </ListItemButton>
+          </ListItem>
+        </Link>
+        <Link to='/profile' className='menu-link'>
+          <ListItem>
+            <ListItemButton>
+              Profil
+            </ListItemButton>
+          </ListItem>
+        </Link>
       </List>
     </Box>
   )

@@ -9,7 +9,7 @@ function BarsList ({ bars }) {
     )
   }
   return (
-    <div>
+    <div className='card-list'>
       {/* le map parcour le tableau et crée un composant pour chaque bar */}
       {bars.map(bar => {
         return (

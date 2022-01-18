@@ -10,6 +10,8 @@ import Auth from './pages/Auth'
 import { AuthProvider } from './contexts/AuthContext'
 import Profile from './pages/Profile'
 import AddBar from './pages/AddBar'
+import Bar from './pages/Bar'
+import Footer from './components/Footer/Footer'
 
 function App () {
   return (
@@ -21,9 +23,11 @@ function App () {
             <Route path='/addBar' element={<AddBar />} />
             <Route path='/profile' element={<Profile />} />
             <Route path='/auth' element={<Auth />} />
+            <Route path='/bar/:id' element={<Bar />} />
             <Route path='/' element={<Bars />} />
           </Routes>
         </header>
+        <Footer />
       </AuthProvider>
     </div>
   )

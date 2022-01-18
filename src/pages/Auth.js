@@ -5,6 +5,7 @@ import UserInfos from '../components/UserInfos/UserInfos'
 import { actionTypes, loginUser, useAuth } from '../contexts/AuthContext'
 import { getProfile, register } from '../services/api'
 import { useNavigate } from 'react-router-dom'
+import { Button } from '@mui/material'
 
 function Auth () {
   // initialisation des état locaux
@@ -68,13 +69,13 @@ function Auth () {
                       error={error}
                     />
               }
-              <h3 href='#' onClick={() => setIsRegister(!isRegister)} className='register'>
+              <a href='#' onClick={() => setIsRegister(!isRegister)} className='register'>
                 {isRegister ? 'Se connecter' : "S'inscrire"}
-              </h3>
+              </a>
             </div>
             )
       }
-      <button onClick={handleLoadProfile}>Load Profile</button>
+      <Button sx={{ m: 1.5 }} className='button' variant='contained' onClick={handleLoadProfile}>Load Profile</Button>
       <p>{profil && JSON.stringify(profil)}</p>
     </div>
   )
