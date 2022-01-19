@@ -14,6 +14,8 @@ function Bar () {
     navigate('/')
   }
 
+  console.log(from)
+
   return (
     <div>
       <h1>{from.name}</h1>
@@ -31,7 +33,7 @@ function Bar () {
           <TableBody>
             {from.schedules.map((row) => (
               <TableRow
-                key={row}
+                key={row._id}
                 sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
               >
                 <TableCell component='th' scope='row'>{row.day}</TableCell>
@@ -55,7 +57,7 @@ function Bar () {
           <TableBody>
             {from.happyHours.map((row) => (
               <TableRow
-                key={row}
+                key={row._id}
                 sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
               >
                 <TableCell component='th' scope='row'>{row.day}</TableCell>

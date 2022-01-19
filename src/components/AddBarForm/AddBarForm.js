@@ -1,6 +1,7 @@
-// import { FormControl, InputLabel, MenuItem, Select } from '@mui/material'
 import { Button } from '@mui/material'
+
 import { useState } from 'react'
+import SelectField from '../SelectInput/SelectInput'
 import TextInput from '../TextInput/TextInput'
 
 function AddBarForm ({ submit }) {
@@ -9,14 +10,12 @@ function AddBarForm ({ submit }) {
     name: '',
     address: '',
     phone: ''
-    // schedules: [
-    //   {
-    //     day: '',
-    //     start: null,
-    //     end: null
-    //   }
-    // ]
   })
+  const [schedules, setSchedules] = useState([
+    {
+      day: ''
+    }
+  ])
   // const [age, setAge] = useState()
 
   const handleChange = (event) => {
@@ -26,10 +25,34 @@ function AddBarForm ({ submit }) {
     })
   }
 
+  const handleChangeSchedules = (i, e) => {
+    // slice sert de dupliquer le tableau sinon javascript réutilise l'objet en mémoire et ne refresh pas la data
+    const newSchedules = schedules.slice()
+    const element = { day: e.target.value }
+    newSchedules[i] = element
+    setSchedules(newSchedules)
+  }
+
+  const addFormFields = () => {
+    if (schedules.length < 5) {
+      setSchedules([...schedules, { day: '' }])
+    } else {
+      window.alert(`limite atteinte ${JSON.stringify(schedules)}`)
+    }
+  }
+
+  const removeFormFields = (i) => {
+    const newSchedules = [...schedules]
+    newSchedules.splice(i, 1)
+    // console.log(newSchedules)
+    setSchedules(newSchedules)
+  }
+
   const handleSubmit = (e) => {
     e.preventDefault()
-    console.log(formData)
-    submit(formData)
+    const data = { ...formData, schedules: schedules }
+    // console.log(data)
+    submit(data)
   }
 
   return (
@@ -55,29 +78,28 @@ function AddBarForm ({ submit }) {
           value={formData.phone}
           onChange={handleChange}
         />
-        {/* {formData.schedules.map((element, index) => (
+        <pre>{JSON.stringify(schedules)}</pre>
+        {schedules.map((element, index) => (
           <div key={index}>
-            <FormControl fullWidth>
-              <InputLabel id='simple-select-label'>Age</InputLabel>
-              <Select
-                labelId='simple-select-label'
-                id='simple-select'
-                value={formData.schedules.day}
-                label='Age'
-                onChange={handleChange}
-              >
-                <MenuItem value='mon'>Lundi</MenuItem>
-                <MenuItem value='tue'>Mardi</MenuItem>
-                <MenuItem value='wed'>Mercredi</MenuItem>
-                <MenuItem value='thu'>Jeudi</MenuItem>
-                <MenuItem value='fri'>Vendredi</MenuItem>
-                <MenuItem value='sat'>Samedi</MenuItem>
-                <MenuItem value='sun'>Dimache</MenuItem>
-              </Select>
-            </FormControl>
+            <SelectField
+              value={element ? element.day : 'mon'}
+              label='Jour'
+              onChange={e => handleChangeSchedules(index, e)}
+              itemValue={['mon', 'tue', 'wed', 'thu', 'fri', 'sat', 'sun']}
+            />
+            {
+                index
+                  ? <button type='button' className='button remove' onClick={() => removeFormFields(index)}>Remove</button>
+                  : null
+              }
           </div>
-        ))} */}
+        ))}
       </div>
+      {
+          schedules.length < 5
+            ? <button className='button add' type='button' onClick={() => addFormFields()}>Add</button>
+            : ''
+        }
       <Button className='button' variant='contained' type='submit' value='Ajouter'>Ajouter</Button>
     </form>
   )
