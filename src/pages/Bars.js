@@ -1,3 +1,4 @@
+import { Box } from '@mui/material'
 import React, { useEffect, useState } from 'react'
 import BarsList from '../components/BarsList/BarsList'
 import { getBars } from '../services/api'
@@ -19,10 +20,10 @@ function Bars () {
   }, [])
 
   return (
-    <div>
+    <Box sx={{ maxWidth: 1200, m: 5 }}>
       <h1>Bars</h1>
       <BarsList bars={bars} />
-    </div>
+    </Box>
   )
 }
 

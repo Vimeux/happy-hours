@@ -1,8 +1,11 @@
 import { Button } from '@mui/material'
+import { Box } from '@mui/system'
 
 import { useState } from 'react'
 import SelectField from '../SelectInput/SelectInput'
 import TextInput from '../TextInput/TextInput'
+
+import './AddBarForm.css'
 
 function AddBarForm ({ submit }) {
   // stockage des données du formulaires
@@ -13,7 +16,16 @@ function AddBarForm ({ submit }) {
   })
   const [schedules, setSchedules] = useState([
     {
-      day: ''
+      day: '',
+      start: '',
+      end: ''
+    }
+  ])
+  const [happyHours, setHappyHours] = useState([
+    {
+      day: '',
+      start: '',
+      end: ''
     }
   ])
   // const [age, setAge] = useState()
@@ -28,134 +40,152 @@ function AddBarForm ({ submit }) {
   const handleChangeSchedules = (i, e) => {
     // slice sert de dupliquer le tableau sinon javascript réutilise l'objet en mémoire et ne refresh pas la data
     const newSchedules = schedules.slice()
-    const element = { day: e.target.value }
+    const element = { ...newSchedules[i], [e.target.name]: e.target.value }
     newSchedules[i] = element
     setSchedules(newSchedules)
   }
 
-  const addFormFields = () => {
-    if (schedules.length < 5) {
-      setSchedules([...schedules, { day: '' }])
-    } else {
-      window.alert(`limite atteinte ${JSON.stringify(schedules)}`)
+  const handleChangeHappyHours = (i, e) => {
+    const newHappyHours = happyHours.slice()
+    const element = { ...newHappyHours[i], [e.target.name]: e.target.value }
+    newHappyHours[i] = element
+    setHappyHours(newHappyHours)
+  }
+
+  const addFormFields = (type) => {
+    if (type === 'schedule') {
+      if (schedules.length < 5) {
+        setSchedules([...schedules, { day: '', start: '', end: '' }])
+      } else {
+        window.alert(`limite atteinte ${JSON.stringify(schedules)}`)
+      }
+    } else if (type === 'happyHours') {
+      if (happyHours.length < 5) {
+        setHappyHours([...happyHours, { day: '', start: '', end: '' }])
+      } else {
+        window.alert(`limite atteinte ${JSON.stringify(schedules)}`)
+      }
     }
   }
 
-  const removeFormFields = (i) => {
-    const newSchedules = [...schedules]
-    newSchedules.splice(i, 1)
-    // console.log(newSchedules)
-    setSchedules(newSchedules)
+  const removeFormFields = (i, type) => {
+    if (type === 'schedule') {
+      const newSchedules = [...schedules]
+      newSchedules.splice(i, 1)
+      setSchedules(newSchedules)
+    } else if (type === 'happyHours') {
+      const newHappyHours = [...happyHours]
+      newHappyHours.splice(i, 1)
+      setSchedules(newHappyHours)
+    }
   }
 
   const handleSubmit = (e) => {
     e.preventDefault()
-    const data = { ...formData, schedules: schedules }
+    const data = { ...formData, schedules: schedules, happyHours: happyHours }
     // console.log(data)
     submit(data)
   }
 
   return (
-    <form onSubmit={handleSubmit}>
-      <h2>Ajouter un Bar</h2>
-      <div>
-        <TextInput
-          name='name'
-          label='Nom'
-          value={formData.name}
-          onChange={handleChange}
-        />
-        <TextInput
-          name='address'
-          label='Adresse'
-          value={formData.address}
-          onChange={handleChange}
-        />
-        <TextInput
-          type='tel'
-          name='phone'
-          label='Téléphone'
-          value={formData.phone}
-          onChange={handleChange}
-        />
-        <pre>{JSON.stringify(schedules)}</pre>
-        {schedules.map((element, index) => (
-          <div key={index}>
-            <SelectField
-              value={element ? element.day : 'mon'}
-              label='Jour'
-              onChange={e => handleChangeSchedules(index, e)}
-              itemValue={['mon', 'tue', 'wed', 'thu', 'fri', 'sat', 'sun']}
-            />
-            {
+    <Box>
+      <form onSubmit={handleSubmit}>
+        <h2>Ajouter un Bar</h2>
+        <div>
+          <TextInput
+            name='name'
+            label='Nom'
+            value={formData.name}
+            onChange={handleChange}
+          />
+          <TextInput
+            name='address'
+            label='Adresse'
+            value={formData.address}
+            onChange={handleChange}
+          />
+          <TextInput
+            type='tel'
+            name='phone'
+            label='Téléphone'
+            value={formData.phone}
+            onChange={handleChange}
+          />
+          {schedules.map((element, index) => (
+            <div className='hours' key={index}>
+              <SelectField
+                value={element ? element.day : 'mon'}
+                label='Jour'
+                name='day'
+                onChange={e => handleChangeSchedules(index, e)}
+                itemValue={['mon', 'tue', 'wed', 'thu', 'fri', 'sat', 'sun']}
+              />
+              <SelectField
+                value={element ? element.start : '00'}
+                label='Ouverture'
+                name='start'
+                onChange={e => handleChangeSchedules(index, e)}
+                itemValue={['00', '01', '02', '03', '04', '05', '06', '07', '08', '09', '10', '11', '12', '13', '14', '15', '16', '17', '18', '19', '20', '21', '22', '23']}
+              />
+              <SelectField
+                value={element ? element.end : '00'}
+                label='Fermeture'
+                name='end'
+                onChange={e => handleChangeSchedules(index, e)}
+                itemValue={['00', '01', '02', '03', '04', '05', '06', '07', '08', '09', '10', '11', '12', '13', '14', '15', '16', '17', '18', '19', '20', '21', '22', '23']}
+              />
+              {
                 index
-                  ? <button type='button' className='button remove' onClick={() => removeFormFields(index)}>Remove</button>
+                  ? <Button variant='contained' type='button' className='button remove' onClick={() => removeFormFields(index, 'schedule')}>Remove</Button>
                   : null
               }
-          </div>
-        ))}
-      </div>
-      {
+            </div>
+          ))}
+          {
           schedules.length < 5
-            ? <button className='button add' type='button' onClick={() => addFormFields()}>Add</button>
+            ? <Button variant='contained' className='button add' type='button' onClick={() => addFormFields('schedule')}>Add</Button>
             : ''
         }
-      <Button className='button' variant='contained' type='submit' value='Ajouter'>Ajouter</Button>
-    </form>
+          {happyHours.map((element, index) => (
+            <div className='hours' key={index}>
+              <SelectField
+                value={element ? element.day : 'mon'}
+                label='Jour'
+                name='day'
+                onChange={e => handleChangeHappyHours(index, e)}
+                itemValue={['mon', 'tue', 'wed', 'thu', 'fri', 'sat', 'sun']}
+              />
+              <SelectField
+                value={element ? element.start : '00'}
+                label='Ouverture'
+                name='start'
+                onChange={e => handleChangeHappyHours(index, e)}
+                itemValue={['00', '01', '02', '03', '04', '05', '06', '07', '08', '09', '10', '11', '12', '13', '14', '15', '16', '17', '18', '19', '20', '21', '22', '23']}
+              />
+              <SelectField
+                value={element ? element.end : '00'}
+                label='Fermeture'
+                name='end'
+                onChange={e => handleChangeHappyHours(index, e)}
+                itemValue={['00', '01', '02', '03', '04', '05', '06', '07', '08', '09', '10', '11', '12', '13', '14', '15', '16', '17', '18', '19', '20', '21', '22', '23']}
+              />
+              {
+                index
+                  ? <Button variant='contained' type='button' className='button remove' onClick={() => removeFormFields(index, 'happyHours')}>Remove</Button>
+                  : null
+              }
+            </div>
+          ))}
+          {
+          schedules.length < 5
+            ? <Button variant='contained' className='button add' type='button' onClick={() => addFormFields('happyHours')}>Add</Button>
+            : ''
+        }
+        </div>
+        <Button className='button' variant='contained' type='submit' value='Ajouter'>Ajouter</Button>
+      </form>
+    </Box>
   )
-
-  // const [formValues, setFormValues] = useState([{ name: '', email: '' }])
-
-  // const handleChange = (i, e) => {
-  //   const newFormValues = [...formValues]
-  //   newFormValues[i][e.target.name] = e.target.value
-  //   setFormValues(newFormValues)
-  // }
-
-  // const addFormFields = () => {
-  //   if (formValues.length < 5) {
-  //     setFormValues([...formValues, { name: '', email: '' }])
-  //   } else {
-  //     alert(`limite atteinte ${JSON.stringify(formValues)}`)
-  //   }
-  // }
-
-  // const removeFormFields = (i) => {
-  //   const newFormValues = [...formValues]
-  //   newFormValues.splice(i, 1)
-  //   setFormValues(newFormValues)
-  // }
-
-  // const handleSubmit = (event) => {
-  //   event.preventDefault()
-  //   alert(JSON.stringify(formValues))
-  // }
-
-  // return (
-  //   <form onSubmit={handleSubmit}>
-  //     {formValues.slice(0, 5).map((element, index) => (
-  //       <div className='form-inline' key={index}>
-  //         <label>Name</label>
-  //         <input type='text' name='name' value={element.name || ''} onChange={e => handleChange(index, e)} />
-  //         <label>Email</label>
-  //         <input type='text' name='email' value={element.email || ''} onChange={e => handleChange(index, e)} />
-  //         {
-  //               index
-  //                 ? <button type='button' className='button remove' onClick={() => removeFormFields(index)}>Remove</button>
-  //                 : null
-  //             }
-  //       </div>
-  //     ))}
-  //     <div className='button-section'>
-  //       {
-  //         formValues.length < 5
-  //           ? <button className='button add' type='button' onClick={() => addFormFields()}>Add</button>
-  //           : ''
-  //       }
-  //       <button className='button submit' type='submit'>Submit</button>
-  //     </div>
-  //   </form>
-  // )
 }
 
 export default AddBarForm
