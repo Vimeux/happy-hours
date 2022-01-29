@@ -1,20 +1,30 @@
 import { Button, Table, TableBody, TableCell, TableContainer, TableHead, TableRow } from '@mui/material'
 import Paper from '@mui/material/Paper'
+import { useEffect, useState } from 'react'
 import { useLocation, useNavigate, useParams } from 'react-router-dom'
-import { deleteBar } from '../services/api'
+import DrinkList from '../components/DrinksList/DrinkList'
+import { deleteBar, getDrinkByBar } from '../services/api'
 
 function Bar () {
+  const [drinks, setDrinks] = useState([])
   const { id } = useParams()
   const location = useLocation()
   const { from } = location.state
   const navigate = useNavigate()
 
+  const getDrinks = async () => {
+    const drink = await getDrinkByBar(id)
+    setDrinks(drink)
+  }
+
+  useEffect(() => {
+    getDrinks()
+  }, [])
+
   const handleDeleteBar = async () => {
     await deleteBar(id)
     navigate('/')
   }
-
-  console.log(from)
 
   return (
     <div>
@@ -68,6 +78,7 @@ function Bar () {
           </TableBody>
         </Table>
       </TableContainer>
+      <DrinkList drinks={drinks} />
       <Button sx={{ m: 1.5 }} className='button' variant='contained' onClick={handleDeleteBar}>Supprimer le bar</Button>
     </div>
   )

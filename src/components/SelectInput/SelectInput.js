@@ -2,7 +2,7 @@ import { FormControl, InputLabel, MenuItem, Select } from '@mui/material'
 
 function SelectField (props) {
   return (
-    <FormControl sx={{ width: 150, m: 1 }}>
+    <FormControl sx={{ m: 1, minWidth: 80 }}>
       <InputLabel id='simple-select-label'>{props.label}</InputLabel>
       <Select
         labelId='simple-select-label'

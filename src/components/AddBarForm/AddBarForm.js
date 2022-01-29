@@ -74,9 +74,10 @@ function AddBarForm ({ submit }) {
       newSchedules.splice(i, 1)
       setSchedules(newSchedules)
     } else if (type === 'happyHours') {
+      console.log('passe ici')
       const newHappyHours = [...happyHours]
       newHappyHours.splice(i, 1)
-      setSchedules(newHappyHours)
+      setHappyHours(newHappyHours)
     }
   }
 
@@ -88,7 +89,7 @@ function AddBarForm ({ submit }) {
   }
 
   return (
-    <Box>
+    <Box sx={{ minWidth: 370 }}>
       <form onSubmit={handleSubmit}>
         <h2>Ajouter un Bar</h2>
         <div>
@@ -112,31 +113,33 @@ function AddBarForm ({ submit }) {
             onChange={handleChange}
           />
           {schedules.map((element, index) => (
-            <div className='hours' key={index}>
-              <SelectField
-                value={element ? element.day : 'mon'}
-                label='Jour'
-                name='day'
-                onChange={e => handleChangeSchedules(index, e)}
-                itemValue={['mon', 'tue', 'wed', 'thu', 'fri', 'sat', 'sun']}
-              />
-              <SelectField
-                value={element ? element.start : '00'}
-                label='Ouverture'
-                name='start'
-                onChange={e => handleChangeSchedules(index, e)}
-                itemValue={['00', '01', '02', '03', '04', '05', '06', '07', '08', '09', '10', '11', '12', '13', '14', '15', '16', '17', '18', '19', '20', '21', '22', '23']}
-              />
-              <SelectField
-                value={element ? element.end : '00'}
-                label='Fermeture'
-                name='end'
-                onChange={e => handleChangeSchedules(index, e)}
-                itemValue={['00', '01', '02', '03', '04', '05', '06', '07', '08', '09', '10', '11', '12', '13', '14', '15', '16', '17', '18', '19', '20', '21', '22', '23']}
-              />
+            <div key={index}>
+              <div className='hours'>
+                <SelectField
+                  value={element ? element.day : 'mon'}
+                  label='Jour'
+                  name='day'
+                  onChange={e => handleChangeSchedules(index, e)}
+                  itemValue={['mon', 'tue', 'wed', 'thu', 'fri', 'sat', 'sun']}
+                />
+                <SelectField
+                  value={element ? element.start : '00'}
+                  label='Ouverture'
+                  name='start'
+                  onChange={e => handleChangeSchedules(index, e)}
+                  itemValue={['00', '01', '02', '03', '04', '05', '06', '07', '08', '09', '10', '11', '12', '13', '14', '15', '16', '17', '18', '19', '20', '21', '22', '23']}
+                />
+                <SelectField
+                  value={element ? element.end : '00'}
+                  label='Fermeture'
+                  name='end'
+                  onChange={e => handleChangeSchedules(index, e)}
+                  itemValue={['00', '01', '02', '03', '04', '05', '06', '07', '08', '09', '10', '11', '12', '13', '14', '15', '16', '17', '18', '19', '20', '21', '22', '23']}
+                />
+              </div>
               {
                 index
-                  ? <Button variant='contained' type='button' className='button remove' onClick={() => removeFormFields(index, 'schedule')}>Remove</Button>
+                  ? <Button sx={{ m: 1.5 }} variant='contained' type='button' className='button remove' onClick={() => removeFormFields(index, 'schedule')}>Remove</Button>
                   : null
               }
             </div>
@@ -147,31 +150,33 @@ function AddBarForm ({ submit }) {
             : ''
         }
           {happyHours.map((element, index) => (
-            <div className='hours' key={index}>
-              <SelectField
-                value={element ? element.day : 'mon'}
-                label='Jour'
-                name='day'
-                onChange={e => handleChangeHappyHours(index, e)}
-                itemValue={['mon', 'tue', 'wed', 'thu', 'fri', 'sat', 'sun']}
-              />
-              <SelectField
-                value={element ? element.start : '00'}
-                label='Ouverture'
-                name='start'
-                onChange={e => handleChangeHappyHours(index, e)}
-                itemValue={['00', '01', '02', '03', '04', '05', '06', '07', '08', '09', '10', '11', '12', '13', '14', '15', '16', '17', '18', '19', '20', '21', '22', '23']}
-              />
-              <SelectField
-                value={element ? element.end : '00'}
-                label='Fermeture'
-                name='end'
-                onChange={e => handleChangeHappyHours(index, e)}
-                itemValue={['00', '01', '02', '03', '04', '05', '06', '07', '08', '09', '10', '11', '12', '13', '14', '15', '16', '17', '18', '19', '20', '21', '22', '23']}
-              />
+            <div key={index}>
+              <div className='hours'>
+                <SelectField
+                  value={element ? element.day : 'mon'}
+                  label='Jour'
+                  name='day'
+                  onChange={e => handleChangeHappyHours(index, e)}
+                  itemValue={['mon', 'tue', 'wed', 'thu', 'fri', 'sat', 'sun']}
+                />
+                <SelectField
+                  value={element ? element.start : '00'}
+                  label='Ouverture'
+                  name='start'
+                  onChange={e => handleChangeHappyHours(index, e)}
+                  itemValue={['00', '01', '02', '03', '04', '05', '06', '07', '08', '09', '10', '11', '12', '13', '14', '15', '16', '17', '18', '19', '20', '21', '22', '23']}
+                />
+                <SelectField
+                  value={element ? element.end : '00'}
+                  label='Fermeture'
+                  name='end'
+                  onChange={e => handleChangeHappyHours(index, e)}
+                  itemValue={['00', '01', '02', '03', '04', '05', '06', '07', '08', '09', '10', '11', '12', '13', '14', '15', '16', '17', '18', '19', '20', '21', '22', '23']}
+                />
+              </div>
               {
                 index
-                  ? <Button variant='contained' type='button' className='button remove' onClick={() => removeFormFields(index, 'happyHours')}>Remove</Button>
+                  ? <Button sx={{ m: 1.5 }} variant='contained' type='button' className='button remove' onClick={() => removeFormFields(index, 'happyHours')}>Remove</Button>
                   : null
               }
             </div>
@@ -182,7 +187,7 @@ function AddBarForm ({ submit }) {
             : ''
         }
         </div>
-        <Button className='button' variant='contained' type='submit' value='Ajouter'>Ajouter</Button>
+        <Button sx={{ m: 1.5 }} className='button' variant='contained' type='submit' value='Ajouter'>Ajouter</Button>
       </form>
     </Box>
   )
